@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Solaris Tactics Grid - Tic Tac Toe — a nine-node strategic simulation for Solaris Network operators."
+    />
+    <meta name="theme-color" content="#020912" />
+    <title>Solaris Tactics Grid - Tic Tac Toe</title>
+    <link rel="icon" type="image/png" href="./assets/solaris-network-emblem.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body>
+    <svg class="svg-sprite" aria-hidden="true">
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path d="m4 20 4.2-1 10.4-10.4a2.1 2.1 0 0 0-3-3L5.2 16 4 20Z" />
+        <path d="m14.5 6.7 2.8 2.8" />
+      </symbol>
+      <symbol id="icon-message" viewBox="0 0 24 24">
+        <path d="M4 4h16v12H9l-5 4V4Z" />
+        <path d="M8 8h8M8 12h6" />
+      </symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24">
+        <path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6l-7-3Z" />
+        <path d="M12 8v8M9 12h6" />
+      </symbol>
+      <symbol id="icon-link" viewBox="0 0 24 24">
+        <path d="m9.5 14.5 5-5" />
+        <path d="m7.5 17.5-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0" />
+        <path d="m16.5 6.5 1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0" />
+      </symbol>
+    </svg>
+
+    <div class="background-orbit background-orbit--one" aria-hidden="true"></div>
+    <div class="background-orbit background-orbit--two" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="system-bar hud-frame" aria-label="Solaris Network module header">
+        <div class="system-brand">
+          <img
+            class="system-brand__emblem"
+            src="./assets/solaris-network-emblem.png"
+            alt=""
+          />
+          <p>SOLARIS NETWORK</p>
+        </div>
+
+        <div class="module-heading">
+          <h1>TACTICS GRID - TIC TAC TOE</h1>
+          <p>STRATEGIC SIMULATION MODULE</p>
+        </div>
+
+        <div class="system-meta">
+          <p class="online-status"><span class="status-light"></span>SYSTEM ONLINE</p>
+          <p>NODE // STG-04</p>
+        </div>
+      </header>
+
+      <main class="simulation-layout">
+        <section
+          class="operator-panel operator-panel--solar hud-frame"
+          aria-labelledby="solar-panel-title"
+        >
+          <div class="corner corner--top-left" aria-hidden="true"></div>
+          <div class="corner corner--top-right" aria-hidden="true"></div>
+          <p class="panel-kicker">FACTION // 01</p>
+          <h2 id="solar-panel-title">SOLAR CORE</h2>
+
+          <label class="operator-field" for="solar-name">
+            <span class="sr-only">Solar Core operator name</span>
+            <input
+              id="solar-name"
+              type="text"
+              value="Operator Helios"
+              maxlength="24"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <svg aria-hidden="true"><use href="#icon-edit"></use></svg>
+          </label>
+
+          <p class="designation"><span></span>SOLAR SIGIL<span></span></p>
+
+          <div class="sigil-display">
+            <div class="sigil-display__orbit" aria-hidden="true"></div>
+            <img src="./assets/solar-core-sigil.png" alt="Radiant Solar Core sigil" />
+          </div>
+
+          <div class="operator-state" id="solar-operator-state">
+            <span class="state-light"></span>
+            <span class="state-label">READY</span>
+          </div>
+        </section>
+
+        <section class="battle-console" aria-label="Tactical grid simulation">
+          <div class="simulation-status hud-frame" id="simulation-status">
+            <div class="simulation-status__signal" aria-hidden="true">
+              <span></span>
+            </div>
+            <div class="simulation-status__copy">
+              <p id="simulation-state-label">PROTOCOL STANDBY</p>
+              <h2 id="turn-announcement">AWAITING OPERATOR INITIALIZATION</h2>
+            </div>
+            <svg class="status-waveform" viewBox="0 0 126 32" aria-hidden="true">
+              <path d="M1 16h28l4-9 4 20 5-24 5 27 5-14h7l4-5 5 10 5-4 5 6 4-11 6 8 6-3 5 3h26" />
+            </svg>
+          </div>
+
+          <div class="tactical-grid" id="tactical-grid" aria-label="Nine-node tactical grid">
+            <button class="grid-cell" type="button" data-cell-index="0" data-coordinate="A1" disabled>
+              <span class="coordinate">A1</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="1" data-coordinate="A2" disabled>
+              <span class="coordinate">A2</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="2" data-coordinate="A3" disabled>
+              <span class="coordinate">A3</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="3" data-coordinate="B1" disabled>
+              <span class="coordinate">B1</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="4" data-coordinate="B2" disabled>
+              <span class="coordinate">B2</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="5" data-coordinate="B3" disabled>
+              <span class="coordinate">B3</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="6" data-coordinate="C1" disabled>
+              <span class="coordinate">C1</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="7" data-coordinate="C2" disabled>
+              <span class="coordinate">C2</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+            <button class="grid-cell" type="button" data-cell-index="8" data-coordinate="C3" disabled>
+              <span class="coordinate">C3</span>
+              <span class="cell-crosshair" aria-hidden="true"></span>
+              <span class="marker-slot"></span>
+            </button>
+          </div>
+
+          <div class="control-deck">
+            <button class="protocol-button" id="start-button" type="button">
+              <span class="button-spark" aria-hidden="true"></span>
+              <span id="start-button-label">INITIALIZE PROTOCOL</span>
+            </button>
+            <button class="secondary-button" id="reset-operators-button" type="button">
+              RESET OPERATORS
+            </button>
+          </div>
+
+          <div class="message-console hud-frame" aria-live="polite" aria-atomic="true">
+            <svg aria-hidden="true"><use href="#icon-message"></use></svg>
+            <p id="message-output">TACTICAL LINK STABLE // AWAITING OPERATOR INITIALIZATION</p>
+            <span class="console-dots" aria-hidden="true"></span>
+          </div>
+        </section>
+
+        <section
+          class="operator-panel operator-panel--lunar hud-frame"
+          aria-labelledby="lunar-panel-title"
+        >
+          <div class="corner corner--top-left" aria-hidden="true"></div>
+          <div class="corner corner--top-right" aria-hidden="true"></div>
+          <p class="panel-kicker">FACTION // 02</p>
+          <h2 id="lunar-panel-title">LUNAR SHADOW</h2>
+
+          <label class="operator-field" for="lunar-name">
+            <span class="sr-only">Lunar Shadow operator name</span>
+            <input
+              id="lunar-name"
+              type="text"
+              value="Operator Nyx"
+              maxlength="24"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <svg aria-hidden="true"><use href="#icon-edit"></use></svg>
+          </label>
+
+          <p class="designation"><span></span>ECLIPSE SIGIL<span></span></p>
+
+          <div class="sigil-display">
+            <div class="sigil-display__orbit" aria-hidden="true"></div>
+            <img src="./assets/lunar-shadow-sigil.png" alt="Luminous Lunar Shadow sigil" />
+          </div>
+
+          <div class="operator-state" id="lunar-operator-state">
+            <span class="state-light"></span>
+            <span class="state-label">READY</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="telemetry-row" aria-label="Simulation telemetry">
+        <section class="telemetry-card telemetry-card--integrity hud-frame">
+          <div class="telemetry-heading">
+            <h2>GRID INTEGRITY</h2>
+            <span>100%</span>
+          </div>
+          <div class="integrity-content">
+            <div class="shield-meter">
+              <svg aria-hidden="true"><use href="#icon-shield"></use></svg>
+            </div>
+            <div class="integrity-bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="telemetry-card telemetry-card--sequence hud-frame">
+          <div class="telemetry-heading">
+            <h2>TURN SEQUENCE</h2>
+            <span id="turn-count">00 / 09</span>
+          </div>
+          <div class="sequence-track" id="sequence-track" aria-label="Recorded turn sequence">
+            <span class="sequence-empty">NO MOVES LOGGED</span>
+          </div>
+        </section>
+
+        <section class="telemetry-card telemetry-card--link hud-frame">
+          <div class="telemetry-heading">
+            <h2>TACTICAL LINK</h2>
+            <span class="link-status"><span></span>STABLE</span>
+          </div>
+          <div class="link-content">
+            <svg class="link-icon" aria-hidden="true"><use href="#icon-link"></use></svg>
+            <svg class="link-wave" viewBox="0 0 220 45" aria-hidden="true">
+              <path d="M1 23h20l4-5 4 11 5-17 5 24 5-32 6 35 5-20 5 7 6-12 6 14 7-6 6 2 5-8 6 15 6-23 6 31 6-27 6 19 6-8 6 3 6-12 6 16 6-7 6 2h22" />
+            </svg>
+          </div>
+        </section>
+      </footer>
+    </div>
+  </body>
+</html>
