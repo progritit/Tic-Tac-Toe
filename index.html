@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="lunar">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
       name="description"
       content="Solaris Tactics Grid - Tic Tac Toe — a nine-node strategic simulation for Solaris Network operators."
     />
-    <meta name="theme-color" content="#020912" />
+    <meta name="theme-color" id="theme-color" content="#020912" />
     <title>Solaris Tactics Grid - Tic Tac Toe</title>
     <link rel="icon" type="image/png" href="./assets/solaris-network-emblem.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,6 +16,16 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("solaris-tactics-theme");
+          document.documentElement.dataset.theme = savedTheme === "solar" ? "solar" : "lunar";
+        } catch {
+          document.documentElement.dataset.theme = "lunar";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
   </head>
@@ -39,6 +49,13 @@
         <path d="m7.5 17.5-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0" />
         <path d="m16.5 6.5 1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0" />
       </symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3.5" />
+        <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" />
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24">
+        <path d="M20 15.4A8.6 8.6 0 0 1 8.6 4 8.6 8.6 0 1 0 20 15.4Z" />
+      </symbol>
     </svg>
 
     <div class="background-orbit background-orbit--one" aria-hidden="true"></div>
@@ -61,6 +78,21 @@
         </div>
 
         <div class="system-meta">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Activate Solar Mode"
+            aria-pressed="false"
+            title="Activate Solar Mode"
+          >
+            <span class="theme-toggle__track" aria-hidden="true">
+              <svg class="theme-toggle__sun"><use href="#icon-sun"></use></svg>
+              <svg class="theme-toggle__moon"><use href="#icon-moon"></use></svg>
+              <span class="theme-toggle__selector"></span>
+            </span>
+            <span class="sr-only" id="theme-toggle-label">Lunar Mode active</span>
+          </button>
           <p class="online-status"><span class="status-light"></span>SYSTEM ONLINE</p>
           <p>NODE // STG-04</p>
         </div>
@@ -217,80 +249,89 @@
         </section>
       </main>
 
-      <footer class="telemetry-row" aria-label="Simulation telemetry">
-        <section class="telemetry-card telemetry-card--integrity hud-frame">
-          <div class="telemetry-heading">
-            <h2>GRID INTEGRITY</h2>
-            <span>100%</span>
-          </div>
-          <div class="integrity-content">
-            <div class="shield-meter">
-              <svg aria-hidden="true"><use href="#icon-shield"></use></svg>
+      <footer class="site-footer">
+        <div class="telemetry-row" aria-label="Simulation telemetry">
+          <section class="telemetry-card telemetry-card--integrity hud-frame">
+            <div class="telemetry-heading">
+              <h2>GRID INTEGRITY</h2>
+              <span>100%</span>
             </div>
-            <div class="integrity-bars" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
+            <div class="integrity-content">
+              <div class="shield-meter">
+                <svg aria-hidden="true"><use href="#icon-shield"></use></svg>
+              </div>
+              <div class="integrity-bars" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="telemetry-card telemetry-card--sequence hud-frame">
-          <div class="telemetry-heading">
-            <h2>TURN SEQUENCE</h2>
-            <span id="turn-count">00 / 09</span>
-          </div>
-          <div class="sequence-track" id="sequence-track" aria-label="Recorded turn sequence">
-            <span class="sequence-empty">NO MOVES LOGGED</span>
-          </div>
-        </section>
+          <section class="telemetry-card telemetry-card--sequence hud-frame">
+            <div class="telemetry-heading">
+              <h2>TURN SEQUENCE</h2>
+              <span id="turn-count">00 / 09</span>
+            </div>
+            <div class="sequence-track" id="sequence-track" aria-label="Recorded turn sequence">
+              <span class="sequence-empty">NO MOVES LOGGED</span>
+            </div>
+          </section>
 
-        <section class="telemetry-card telemetry-card--link hud-frame">
-          <div class="telemetry-heading">
-            <h2>TACTICAL LINK</h2>
-            <span class="link-status"><span></span>STABLE</span>
-          </div>
-          <div class="link-content">
-            <svg class="link-icon" aria-hidden="true"><use href="#icon-link"></use></svg>
-            <svg class="link-wave" viewBox="0 0 220 45" aria-hidden="true">
-              <path d="M1 23h20l4-5 4 11 5-17 5 24 5-32 6 35 5-20 5 7 6-12 6 14 7-6 6 2 5-8 6 15 6-23 6 31 6-27 6 19 6-8 6 3 6-12 6 16 6-7 6 2h22" />
-            </svg>
-          </div>
-        </section>
-        
-        <!-- Developer signature and social profiles -->
+          <section class="telemetry-card telemetry-card--link hud-frame">
+            <div class="telemetry-heading">
+              <h2>TACTICAL LINK</h2>
+              <span class="link-status"><span></span>STABLE</span>
+            </div>
+            <div class="link-content">
+              <svg class="link-icon" aria-hidden="true"><use href="#icon-link"></use></svg>
+              <svg class="link-wave" viewBox="0 0 220 45" aria-hidden="true">
+                <path d="M1 23h20l4-5 4 11 5-17 5 24 5-32 6 35 5-20 5 7 6-12 6 14 7-6 6 2 5-8 6 15 6-23 6 31 6-27 6 19 6-8 6 3 6-12 6 16 6-7 6 2h22" />
+              </svg>
+            </div>
+          </section>
+        </div>
+
         <div class="footer__developer hud-frame">
-          <div class="footer__identity">
-            <span class="footer__eyebrow">DEVELOPER SIGNATURE</span>
-        
+          <div class="footer__signature">
+            <span class="footer__eyebrow">DEVELOPER SIGNATURE // VERIFIED</span>
             <p class="footer__credit">
-              © <span id="current-year"></span>
-              <span class="footer__name">CLEBSON WEB DEV</span>
+              © Clebson Web Dev <span id="current-year"></span>
               <span class="footer__rights">// ALL RIGHTS RESERVED</span>
             </p>
           </div>
-        
+
           <nav class="footer__socials" aria-label="Clebson Web Dev social profiles">
-            <span class="footer__social-label">EXTERNAL LINKS</span>
-        
-            <a class="social-link social-link--github" href="https://github.com/progritit" target="_blank"
-              rel="noopener noreferrer" aria-label="Visit Clebson Web Dev on GitHub">
+            <a
+              class="social-link"
+              href="https://github.com/progritit"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Clebson Web Dev on GitHub"
+            >
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="currentColor"
-                  d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.92c-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.64-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.94a9.3 9.3 0 0 1 2.5.35c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.04.36.32.68.94.68 1.89v2.82c0 .27.18.59.69.49A10.24 10.24 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z" />
+                <path
+                  fill="currentColor"
+                  d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49v-1.92c-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.64-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.94a9.3 9.3 0 0 1 2.5.35c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.04.36.32.68.94.68 1.89v2.82c0 .27.18.59.69.49A10.24 10.24 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"
+                />
               </svg>
-        
-              <span>GITHUB</span>
+              <span class="social-link__label">GITHUB</span>
             </a>
-        
-            <a class="social-link social-link--linkedin" href="https://www.linkedin.com/in/clebsoncosta" target="_blank"
-              rel="noopener noreferrer" aria-label="Visit Clebson Costa on LinkedIn">
+
+            <a
+              class="social-link"
+              href="https://www.linkedin.com/in/clebsoncosta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Clebson Costa on LinkedIn"
+            >
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="currentColor"
-                  d="M6.5 8.1H3.2V20h3.3V8.1ZM4.85 3A1.93 1.93 0 1 0 4.85 6.86 1.93 1.93 0 0 0 4.85 3ZM20.8 13.17c0-3.58-1.91-5.25-4.47-5.25a3.88 3.88 0 0 0-3.5 1.92V8.1H9.5V20h3.33v-5.9c0-1.55.3-3.05 2.22-3.05 1.89 0 1.91 1.77 1.91 3.15V20h3.34l.5-6.83Z" />
+                <path
+                  fill="currentColor"
+                  d="M6.5 8.1H3.2V20h3.3V8.1ZM4.85 3A1.93 1.93 0 1 0 4.85 6.86 1.93 1.93 0 0 0 4.85 3ZM20.8 13.17c0-3.58-1.91-5.25-4.47-5.25a3.88 3.88 0 0 0-3.5 1.92V8.1H9.5V20h3.33v-5.9c0-1.55.3-3.05 2.22-3.05 1.89 0 1.91 1.77 1.91 3.15V20h3.34l.5-6.83Z"
+                />
               </svg>
-        
-              <span>LINKEDIN</span>
+              <span class="social-link__label">LINKEDIN</span>
             </a>
           </nav>
         </div>

@@ -193,6 +193,71 @@
   })();
 
   /**
+   * Theme controller module
+   * Switches between the Lunar and Solar environments and stores the operator preference.
+   */
+  const ThemeController = (() => {
+    const STORAGE_KEY = "solaris-tactics-theme";
+    const root = document.documentElement;
+    const toggleButton = document.querySelector("#theme-toggle");
+    const toggleLabel = document.querySelector("#theme-toggle-label");
+    const themeColor = document.querySelector("#theme-color");
+
+    const applyTheme = (theme, shouldPersist = false) => {
+      const activeTheme = theme === "solar" ? "solar" : "lunar";
+      const solarIsActive = activeTheme === "solar";
+      const nextThemeName = solarIsActive ? "Lunar" : "Solar";
+      const activeThemeName = solarIsActive ? "Solar" : "Lunar";
+
+      root.dataset.theme = activeTheme;
+      toggleButton.setAttribute("aria-pressed", String(solarIsActive));
+      toggleButton.setAttribute("aria-label", `Activate ${nextThemeName} Mode`);
+      toggleButton.title = `Activate ${nextThemeName} Mode`;
+      toggleLabel.textContent = `${activeThemeName} Mode active`;
+      themeColor.content = solarIsActive ? "#d5ad58" : "#020912";
+
+      if (shouldPersist) {
+        try {
+          localStorage.setItem(STORAGE_KEY, activeTheme);
+        } catch {
+          // The selected theme still works when browser storage is unavailable.
+        }
+      }
+    };
+
+    const toggleTheme = () => {
+      const nextTheme = root.dataset.theme === "solar" ? "lunar" : "solar";
+      applyTheme(nextTheme, true);
+    };
+
+    const init = () => {
+      applyTheme(root.dataset.theme);
+      toggleButton.addEventListener("click", toggleTheme);
+      requestAnimationFrame(() => root.classList.add("theme-ready"));
+    };
+
+    return {
+      init,
+    };
+  })();
+
+  /**
+   * Footer controller module
+   * Keeps the developer copyright year current without hard-coding it in the markup.
+   */
+  const FooterController = (() => {
+    const currentYear = document.querySelector("#current-year");
+
+    const init = () => {
+      currentYear.textContent = new Date().getFullYear();
+    };
+
+    return {
+      init,
+    };
+  })();
+
+  /**
    * Display controller module
    * Mirrors controller state into the DOM and owns all user-interface events.
    */
@@ -213,7 +278,6 @@
       lunarOperatorState: document.querySelector("#lunar-operator-state"),
       turnCount: document.querySelector("#turn-count"),
       sequenceTrack: document.querySelector("#sequence-track"),
-      currentYear: document.querySelector("#current-year")
     };
 
     const clearStateClasses = (element) => {
@@ -454,9 +518,6 @@
       elements.tacticalGrid.addEventListener("keydown", handleGridNavigation);
       elements.solarName.addEventListener("keydown", handleNameFieldKeydown);
       elements.lunarName.addEventListener("keydown", handleNameFieldKeydown);
-      if (elements.currentYear) {
-        elements.currentYear.textContent = new Date().getFullYear();
-      }
       render();
     };
 
@@ -465,5 +526,7 @@
     };
   })();
 
+  ThemeController.init();
+  FooterController.init();
   DisplayController.init();
 })();
