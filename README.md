@@ -2,7 +2,7 @@
 
 <img src="./assets/solaris-network-emblem.png" alt="Solaris Network emblem" width="120">
 
-# Solaris Tactics Grid
+# Solaris Tactics Grid - Tic Tac Toe
 
 ### Strategic Simulation Module
 
@@ -20,13 +20,13 @@ A responsive cyber-solar strategy game that transforms classic Tic Tac Toe into 
 
 ## Preview
 
-![Solaris Tactics Grid interface preview](./assets/solaris-tactics-grid-preview.png)
+![Solaris Tactics Grid - Tic Tac Toe interface preview](./assets/solaris-tactics-grid-preview.png)
 
 ---
 
 ## Overview
 
-**Solaris Tactics Grid** is a browser-based strategic simulator developed for [The Odin Project](https://www.theodinproject.com/) Tic Tac Toe assignment.
+**Solaris Tactics Grid - Tic Tac Toe** is a browser-based strategic simulator developed for [The Odin Project](https://www.theodinproject.com/) Tic Tac Toe assignment.
 
 Rather than presenting the experience as a conventional game of Xs and Os, the project places two Solaris Network factions in control of a tactical grid:
 
