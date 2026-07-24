@@ -20,7 +20,7 @@ A responsive cyber-solar strategy game that transforms classic Tic Tac Toe into 
 
 ## Preview
 
-![Solaris Tactics Grid - Tic Tac Toe interface preview](./assets/solaris-tactics-grid-preview.png)
+![Solaris Tactics Grid - Tic Tac Toe interface preview](./assets/tictactoe_preview.png)
 
 ---
 
