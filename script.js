@@ -213,6 +213,7 @@
       lunarOperatorState: document.querySelector("#lunar-operator-state"),
       turnCount: document.querySelector("#turn-count"),
       sequenceTrack: document.querySelector("#sequence-track"),
+      currentYear: document.querySelector("#current-year")
     };
 
     const clearStateClasses = (element) => {
@@ -453,6 +454,9 @@
       elements.tacticalGrid.addEventListener("keydown", handleGridNavigation);
       elements.solarName.addEventListener("keydown", handleNameFieldKeydown);
       elements.lunarName.addEventListener("keydown", handleNameFieldKeydown);
+      if (elements.currentYear) {
+        elements.currentYear.textContent = new Date().getFullYear();
+      }
       render();
     };
 
