@@ -20,7 +20,7 @@ A responsive cyber-solar strategy game that transforms classic Tic Tac Toe into 
 
 ## Preview
 
-![Solaris Tactics Grid interface preview](./assets/tictactoe_preview.png)
+![Solaris Tactics Grid interface preview](./assets/solaris-tactics-grid-preview.png)
 
 ---
 
@@ -30,10 +30,10 @@ A responsive cyber-solar strategy game that transforms classic Tic Tac Toe into 
 
 Rather than presenting the experience as a conventional game of Xs and Os, the project places two Solaris Network factions in control of a tactical grid:
 
-- **Solar Core** â€” represented by a radiant gold solar sigil.
-- **Lunar Shadow** â€” represented by a luminous cyan eclipse sigil.
+- **Solar Core** — represented by a radiant gold solar sigil.
+- **Lunar Shadow** — represented by a luminous cyan eclipse sigil.
 
-The project focuses on object-oriented JavaScript concepts, encapsulated state, separation of concerns, DOM rendering, responsive interface design, and accessible interaction patternsâ€”all without a framework or external runtime dependency.
+The project focuses on object-oriented JavaScript concepts, encapsulated state, separation of concerns, DOM rendering, responsive interface design, and accessible interaction patterns—all without a framework or external runtime dependency.
 
 ---
 
@@ -152,13 +152,13 @@ The JavaScript is organized around a factory function and single-instance module
 
 ```text
 User interaction
-      â†“
+      ↓
 DisplayController
-      â†“
+      ↓
 GameController
-      â†“
+      ↓
 Gameboard
-      â†“
+      ↓
 Updated state rendered to the DOM
 ```
 
@@ -166,16 +166,16 @@ Updated state rendered to the DOM
 
 ```text
 Tic-Tac-Toe/
-â”œâ”€â”€ assets/
-â”‚   â”œâ”€â”€ lunar-shadow-sigil.png
-â”‚   â”œâ”€â”€ solar-core-sigil.png
-â”‚   â”œâ”€â”€ solaris-network-emblem.png
-â”‚   â””â”€â”€ solaris-tactics-grid-preview.png
-â”œâ”€â”€ index.html
-â”œâ”€â”€ style.css
-â”œâ”€â”€ script.js
-â”œâ”€â”€ README.md
-â””â”€â”€ LICENSE
+├── assets/
+│   ├── lunar-shadow-sigil.png
+│   ├── solar-core-sigil.png
+│   ├── solaris-network-emblem.png
+│   └── solaris-tactics-grid-preview.png
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── LICENSE
 ```
 
 ---
@@ -255,7 +255,7 @@ Because the project is fully static, it can be deployed directly with GitHub Pag
    ```
 
 2. Open the repository on GitHub.
-3. Navigate to **Settings â†’ Pages**.
+3. Navigate to **Settings → Pages**.
 4. Under **Build and deployment**, select **Deploy from a branch**.
 5. Select the `main` branch and the `/ (root)` directory.
 6. Save the configuration.
@@ -300,7 +300,7 @@ Keep pull requests focused and avoid including unrelated formatting or refactori
 
 ## Author
 
-**Clebson Costa â€” Clebson Web Dev**
+**Clebson Costa — Clebson Web Dev**
 
 - GitHub: [@progritit](https://github.com/progritit)
 - LinkedIn: [clebsoncosta](https://www.linkedin.com/in/clebsoncosta)
@@ -320,3 +320,4 @@ Keep pull requests focused and avoid including unrelated formatting or refactori
 ## License
 
 This project is distributed under the **MIT License**. See the [`LICENSE`](./LICENSE) file for details.
+
