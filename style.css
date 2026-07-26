@@ -762,7 +762,8 @@ html[data-theme="solar"] .theme-toggle__moon {
   align-self: center;
   justify-self: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: clamp(5px, 0.55vw, 8px);
   padding: 3px;
 }
